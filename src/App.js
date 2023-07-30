@@ -5,8 +5,15 @@ import logoPet from './images/logo.png';
 import style from './styles/style.css';
 import { Link, Route, Routes } from 'react-router-dom';
 import ShoesList from './components/ShoesList';
+import { useState } from 'react';
 
 function App() {
+
+    const [count, setCount] = useState(20);
+    const [total, setTotal] = useState(0);
+
+    const incrementCount = () => count + 20 > total ? setCount(total) : setCount(count + 20);
+    const totalFunc = (total) => setTotal(total);
 
     return (
         // <div className="App">
@@ -37,9 +44,13 @@ function App() {
             </header>
 
             <Routes>
-                <Route path='/' element={<ShoesList />} />
-                <Route path="/shoes" element={<ShoesList />} />
+                <Route path='/' element={<ShoesList count={count} totalFunc={totalFunc} />} />
+                <Route path="/shoes" element={<ShoesList count={count} totalFunc={totalFunc} />} />
             </Routes>
+
+            <h2 className='heading-count'>Loading {Number(count)} out of {Number(total)}</h2>
+
+            <button className='btn-load' onClick={incrementCount} disabled={count === total}>Load More</button>
 
         </div>
     );
