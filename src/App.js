@@ -9,11 +9,13 @@ import { useState } from 'react';
 
 function App() {
 
-    const [count, setCount] = useState(20);
-    const [total, setTotal] = useState(0);
+    // const [count, setCount] = useState(20);
+    // const [total, setTotal] = useState(0);
+    // const [displayShoes, setDisplayShoes] = useState(true);
 
-    const incrementCount = () => count + 20 > total ? setCount(total) : setCount(count + 20);
-    const totalFunc = (total) => setTotal(total);
+    // const incrementCount = () => count + 20 > total ? setCount(total) : setCount(count + 20);
+    // const totalFunc = (total) => setTotal(total);
+    // const changeDisplay = () => setDisplayShoes();
 
     return (
         // <div className="App">
@@ -44,14 +46,19 @@ function App() {
             </header>
 
             <Routes>
-                <Route path='/' element={<ShoesList count={count} totalFunc={totalFunc} />} />
-                <Route path="/shoes" element={<ShoesList count={count} totalFunc={totalFunc} />} />
+                <Route path='/' element={<ShoesList />} />
+                <Route path="/shoes" element={<ShoesList />} />
             </Routes>
 
-            <h2 className='heading-count'>Loading {Number(count)} out of {Number(total)}</h2>
+            {/* <div className='filter-div'>
 
-            <button className='btn-load' onClick={incrementCount} disabled={count === total}>Load More</button>
+            </div>
 
+            <div className='product-grid'>
+                <h2 className='heading-count'>Loading {Number(count)} out of {Number(total)}</h2>
+
+                <button className='btn-load' onClick={incrementCount} disabled={count === total}>Load More</button>
+            </div> */}
         </div>
     );
 }
