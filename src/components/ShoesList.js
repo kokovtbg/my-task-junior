@@ -6,8 +6,31 @@ export default function ShoesList() {
     const [count, setCount] = useState(20);
     const colors = ['red', 'blue', 'gray'];
     const [color, setColor] = useState({});
+    
+    useEffect(() => {
+        if (count > dataShoes.length) {
+            return setCount(dataShoes.length);
+        }
+        if (count + 20 > dataShoes.length) {
+            if (count < 20 && dataShoes.length >= 20) {
+                setCount(20);
+            }
+            return;
+        } 
+        setCount(count + 20);
+    }, [count, dataShoes.length]);
 
     const incrementCount = () => count + 20 > dataShoes.length ? setCount(dataShoes.length) : setCount(count + 20);
+
+    // function incrementCount() {
+    //     if (count > dataShoes.length) {
+    //         return setCount(dataShoes.length);
+    //     }
+    //     if (count + 20 > dataShoes.length) {
+    //         return setCount(dataShoes.length);
+    //     } 
+    //     setCount(count + 20);
+    // }
 
     const onColorChange = (e) => {
         setColor(state => ({ ...state, [e.target.value]: e.target.checked }));
@@ -15,18 +38,28 @@ export default function ShoesList() {
 
     const onSubmitHandler = (e) => {
         e.preventDefault();
+
+        const shoesTemp = shoes;
+        setDataShoes(shoesTemp);
+        console.log(shoesTemp);
+        
         const colors = Array.from(e.target['color']).filter(c => c.checked === true);
         const colorsId = [];
         colors.forEach(e => colorsId.push(e.id));
         console.log(colors);
         console.log(colorsId);
         const shoesId = [];
-        dataShoes.forEach(s => s.color.forEach(c => colorsId.indexOf(c) !== -1 && !shoesId.includes(s.id) ? shoesId.push(s.id) : ''));
+        shoesTemp.forEach(s => s.color.forEach(c => colorsId.indexOf(c) !== -1 && !shoesId.includes(s.id) ? shoesId.push(s.id) : ''));
         console.log(shoesId);
-        setDataShoes(state => state.filter(el => shoesId.includes(el.id)));
+        
+        setDataShoes(shoesTemp.filter(el => shoesId.includes(el.id)));
         // setDataShoes(state => state.filter(el => el.color.some(c => colorsId.indexOf(c) !== -1)));
         // setDataShoes(state => state.filter(el => el.color.some(c => c === 'red')));
-        incrementCount();
+        
+        // setCount(dataShoes.length);
+        // console.log(count);
+        // console.log(dataShoes);
+        // incrementCount();
     }
 
     return (
