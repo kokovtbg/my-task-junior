@@ -6,7 +6,8 @@ export default function ShoesList() {
     const [count, setCount] = useState(20);
     const colors = ['red', 'blue', 'gray'];
     const [color, setColor] = useState({});
-    
+    const [price, setPrice] = useState(0);
+
     useEffect(() => {
         if (count > dataShoes.length) {
             return setCount(dataShoes.length);
@@ -16,7 +17,7 @@ export default function ShoesList() {
                 setCount(20);
             }
             return;
-        } 
+        }
         setCount(count + 20);
     }, [count, dataShoes.length]);
 
@@ -36,13 +37,17 @@ export default function ShoesList() {
         setColor(state => ({ ...state, [e.target.value]: e.target.checked }));
     }
 
+    const onPriceChange = (e) => {
+        setPrice(e.target.value);
+    }
+
     const onSubmitHandler = (e) => {
         e.preventDefault();
 
         const shoesTemp = shoes;
         setDataShoes(shoesTemp);
         console.log(shoesTemp);
-        
+
         const colors = Array.from(e.target['color']).filter(c => c.checked === true);
         const colorsId = [];
         colors.forEach(e => colorsId.push(e.id));
@@ -51,11 +56,12 @@ export default function ShoesList() {
         const shoesId = [];
         shoesTemp.forEach(s => s.color.forEach(c => colorsId.indexOf(c) !== -1 && !shoesId.includes(s.id) ? shoesId.push(s.id) : ''));
         console.log(shoesId);
-        
+
         setDataShoes(shoesTemp.filter(el => shoesId.includes(el.id)));
+        setDataShoes(shoesTemp.filter(el => el.price <= price));
         // setDataShoes(state => state.filter(el => el.color.some(c => colorsId.indexOf(c) !== -1)));
         // setDataShoes(state => state.filter(el => el.color.some(c => c === 'red')));
-        
+
         // setCount(dataShoes.length);
         // console.log(count);
         // console.log(dataShoes);
@@ -79,6 +85,14 @@ export default function ShoesList() {
                             onChange={onColorChange} />
                     )}
                     <h3>Choose price</h3>
+                    <label htmlFor="price">{price}</label>
+                    <input
+                        id='price'
+                        type="range"
+                        min="0"
+                        max="1000"
+                        value={price}
+                        onChange={onPriceChange} />
                     <button>Search</button>
                 </form>
             </div>
