@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import shoes from '../db/shoes.json';
+import bags from '../db/bags.json';
 
-export default function ShoesList() {
-    const [dataShoes, setDataShoes] = useState(shoes);
+export default function BagsList() {
+    const [dataBags, setdataBags] = useState(bags);
     const [count, setCount] = useState(20);
     const colors = ['red', 'blue', 'gray'];
     const [color, setColor] = useState({});
@@ -10,29 +10,29 @@ export default function ShoesList() {
     const [sort, setSort] = useState('');
 
     useEffect(() => {
-        if (count > dataShoes.length) {
-            return setCount(dataShoes.length);
+        if (count > dataBags.length) {
+            return setCount(dataBags.length);
         }
-        if (count + 20 > dataShoes.length) {
-            if (count < 20 && dataShoes.length >= 20) {
+        if (count + 20 > dataBags.length) {
+            if (count < 20 && dataBags.length >= 20) {
                 setCount(20);
             }
-            if (count < 20 && dataShoes.length < 20) {
-                setCount(dataShoes.length);
+            if (count < 20 && dataBags.length < 20) {
+                setCount(dataBags.length);
             }
             return;
         }
         setCount(count + 20);
-    }, [count, dataShoes.length]);
+    }, [count, dataBags.length]);
 
-    const incrementCount = () => count + 20 > dataShoes.length ? setCount(dataShoes.length) : setCount(count + 20);
+    const incrementCount = () => count + 20 > dataBags.length ? setCount(dataBags.length) : setCount(count + 20);
 
     // function incrementCount() {
-    //     if (count > dataShoes.length) {
-    //         return setCount(dataShoes.length);
+    //     if (count > dataBags.length) {
+    //         return setCount(dataBags.length);
     //     }
-    //     if (count + 20 > dataShoes.length) {
-    //         return setCount(dataShoes.length);
+    //     if (count + 20 > dataBags.length) {
+    //         return setCount(dataBags.length);
     //     } 
     //     setCount(count + 20);
     // }
@@ -48,26 +48,26 @@ export default function ShoesList() {
     const onSubmitHandler = (e) => {
         e.preventDefault();
 
-        const shoesTemp = shoes;
-        setDataShoes(shoesTemp);
-        console.log(shoesTemp);
+        const bagsTemp = bags;
+        setdataBags(bagsTemp);
+        console.log(bagsTemp);
 
         const colors = Array.from(e.target['color']).filter(c => c.checked === true);
         const colorsId = [];
         colors.forEach(e => colorsId.push(e.id));
         console.log(colors);
         console.log(colorsId);
-        const shoesId = [];
-        shoesTemp.forEach(s => s.color.forEach(c => colorsId.indexOf(c) !== -1 && !shoesId.includes(s.id) ? shoesId.push(s.id) : ''));
-        console.log(shoesId);
+        const bagsId = [];
+        bagsTemp.forEach(s => s.color.forEach(c => colorsId.indexOf(c) !== -1 && !bagsId.includes(s.id) ? bagsId.push(s.id) : ''));
+        console.log(bagsId);
 
-        setDataShoes(shoesTemp.filter(el => shoesId.includes(el.id) && el.price <= price));
-        // setDataShoes(state => state.filter(el => el.color.some(c => colorsId.indexOf(c) !== -1)));
-        // setDataShoes(state => state.filter(el => el.color.some(c => c === 'red')));
+        setdataBags(bagsTemp.filter(el => bagsId.includes(el.id) && el.price <= price));
+        // setdataBags(state => state.filter(el => el.color.some(c => colorsId.indexOf(c) !== -1)));
+        // setdataBags(state => state.filter(el => el.color.some(c => c === 'red')));
 
-        // setCount(dataShoes.length);
+        // setCount(dataBags.length);
         // console.log(count);
-        // console.log(dataShoes);
+        // console.log(dataBags);
         // incrementCount();
     }
 
@@ -75,13 +75,13 @@ export default function ShoesList() {
         setSort(e.target.value);
         switch (e.target.value) {
             case "name_asc":
-                return setDataShoes(dataShoes.sort((a, b) => a.name.localeCompare(b.name)));
+                return setdataBags(dataBags.sort((a, b) => a.name.localeCompare(b.name)));
             case "name_desc":
-                return setDataShoes(dataShoes.sort((a, b) => b.name.localeCompare(a.name)));
+                return setdataBags(dataBags.sort((a, b) => b.name.localeCompare(a.name)));
             case "price_asc":
-                return setDataShoes(dataShoes.sort((a, b) => a.price - b.price));
+                return setdataBags(dataBags.sort((a, b) => a.price - b.price));
             case "price_desc":
-                return setDataShoes(dataShoes.sort((a, b) => b.price - a.price));
+                return setdataBags(dataBags.sort((a, b) => b.price - a.price));
             default:
                 return '';
         }
@@ -112,7 +112,7 @@ export default function ShoesList() {
                             id='price'
                             type="range"
                             min="0"
-                            max="1000"
+                            max="100"
                             value={price}
                             onChange={onPriceChange} />
                     </div>
@@ -124,8 +124,8 @@ export default function ShoesList() {
 
             <div className='product-grid'>
                 <div className='category-sort-div'>
-                    <h1>Shoes</h1>
-                    <h2>This page shows shoes in store</h2>
+                    <h1>Bags</h1>
+                    <h2>This page shows bags in store</h2>
                     <select
                         className='sort-select'
                         value={sort}
@@ -137,7 +137,7 @@ export default function ShoesList() {
                     </select>
                 </div>
                 <ul className='items-div'>
-                    {dataShoes.map((e, i) =>
+                    {dataBags.map((e, i) =>
                         i + 1 <= count ?
                             <ListItem
                                 id={e.id}
@@ -152,9 +152,9 @@ export default function ShoesList() {
                                 rating={e.rating} /> : ''
                     )}
                 </ul>
-                <h2 className='heading-count'>Loading {count} out of {dataShoes.length}</h2>
+                <h2 className='heading-count'>Loading {count} out of {dataBags.length}</h2>
 
-                <button className='btn-load' onClick={incrementCount} disabled={count === dataShoes.length}>Load More</button>
+                <button className='btn-load' onClick={incrementCount} disabled={count === dataBags.length}>Load More</button>
             </div>
 
         </div>

@@ -6,6 +6,7 @@ import style from './styles/style.css';
 import { Link, Route, Routes } from 'react-router-dom';
 import ShoesList from './components/ShoesList';
 import { useState } from 'react';
+import BagsList from './components/BagsList';
 
 function App() {
 
@@ -48,6 +49,7 @@ function App() {
             <Routes>
                 <Route path='/' element={<ShoesList />} />
                 <Route path="/shoes" element={<ShoesList />} />
+                <Route path="/bags" element={<BagsList />} />
             </Routes>
 
             {/* <div className='filter-div'>
@@ -59,6 +61,23 @@ function App() {
 
                 <button className='btn-load' onClick={incrementCount} disabled={count === total}>Load More</button>
             </div> */}
+
+            <footer>
+                <ul>
+                    <li><Link href="#"><span className="bold">About Us</span></Link></li>
+                    <li><Link href="#">Locations</Link></li>
+                    <li><Link href="#">Return Policy</Link></li>
+                    <li><Link href="#">Complaints</Link></li>
+                    <li><Link href="#">Gift Cards</Link></li>
+                </ul>
+                <Link href="#"><span className="bold">Contact Us</span></Link>
+                <button>Call</button>
+                <time>Mon-Fri: 8AM - 10PM</time>
+                <i className="fa-brands fa-square-facebook"></i>
+                <i className="fa-brands fa-instagram"></i>
+                <i className="fa-brands fa-twitter"></i>
+                <i className="fa-brands fa-pinterest"></i>
+            </footer>
         </div>
     );
 }

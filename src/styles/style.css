@@ -1,3 +1,5 @@
+@import 'https://use.fontawesome.com/releases/v6.2.1/css/all.css';
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -17,6 +19,8 @@ body {
     padding: 12px;
     background-color: gray;
     padding: 0px 28px;
+    position: sticky;
+    top: 0;
 }
 
 .logo-div {
@@ -65,6 +69,25 @@ body {
 
 .product-grid {
     flex-basis: 85%;
+}
+
+.filter-div-div {
+    margin-bottom: 20px;
+    margin-top: 12px;
+}
+
+.category-sort-div {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.category-sort-div h1,
+.category-sort-div h2 {
+    flex-basis: 80%;
+}
+
+.sort-select {
+    flex-basis: 20%;
 }
 
 .items-div {
@@ -135,6 +158,61 @@ body {
 
 .heading-count {
     text-align: center;
+}
+
+/* Footer */
+
+footer {
+    display: flex;
+    /* width: 85%; */
+    margin: 0 auto;
+    padding: 28px 28px;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+footer ul {
+    list-style: none;
+    display: flex;
+    margin-right: auto;
+}
+
+footer ul li:not(:last-child) {
+    margin-right: 16px;
+}
+
+footer a {
+    text-decoration: none;
+    color: gray;
+}
+
+footer > a {
+    margin-right: 24px;
+}
+
+footer button {
+    margin-right: 24px;
+    padding: 8px 48px;
+    border: none;
+    border-radius: 4px;
+    background-color: #cac3c3;
+}
+
+footer time {
+    font-size: 14px;
+    color: gray;
+    margin-right: 24px;
+}
+
+footer i {
+    font-size: 24px;
+    color: gray;
+}
+
+footer i:not(:last-child) {
+    margin-right: 12px;
 }
 
 
