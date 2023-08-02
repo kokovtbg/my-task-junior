@@ -56,6 +56,15 @@ body {
 
 .main {
     padding: 0px 28px;
+    display: flex;
+}
+
+.filter-div {
+    flex-basis: 15%;
+}
+
+.product-grid {
+    flex-basis: 85%;
 }
 
 .items-div {
@@ -88,7 +97,7 @@ body {
     padding: 0px 5px;
 }
 
-.items-div .item button {
+.btn {
     margin: 5px;
     padding: 8px;
     border-radius: 4px;
@@ -96,9 +105,10 @@ body {
     background-color: gray;
     cursor: pointer;
     color: red;
+    font-weight: bold;
 }
 
-.items-div .item button:hover {
+.btn:hover {
     color: green;
     background-color: lightgray;
 }

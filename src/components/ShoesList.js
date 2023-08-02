@@ -7,6 +7,7 @@ export default function ShoesList() {
     const colors = ['red', 'blue', 'gray'];
     const [color, setColor] = useState({});
     const [price, setPrice] = useState(0);
+    const [sort, setSort] = useState('');
 
     useEffect(() => {
         if (count > dataShoes.length) {
@@ -15,6 +16,9 @@ export default function ShoesList() {
         if (count + 20 > dataShoes.length) {
             if (count < 20 && dataShoes.length >= 20) {
                 setCount(20);
+            }
+            if (count < 20 && dataShoes.length < 20) {
+                setCount(dataShoes.length);
             }
             return;
         }
@@ -57,8 +61,7 @@ export default function ShoesList() {
         shoesTemp.forEach(s => s.color.forEach(c => colorsId.indexOf(c) !== -1 && !shoesId.includes(s.id) ? shoesId.push(s.id) : ''));
         console.log(shoesId);
 
-        setDataShoes(shoesTemp.filter(el => shoesId.includes(el.id)));
-        setDataShoes(shoesTemp.filter(el => el.price <= price));
+        setDataShoes(shoesTemp.filter(el => shoesId.includes(el.id) && el.price <= price));
         // setDataShoes(state => state.filter(el => el.color.some(c => colorsId.indexOf(c) !== -1)));
         // setDataShoes(state => state.filter(el => el.color.some(c => c === 'red')));
 
@@ -66,6 +69,22 @@ export default function ShoesList() {
         // console.log(count);
         // console.log(dataShoes);
         // incrementCount();
+    }
+
+    const onSortChangeHandler = (e) => {
+        setSort(e.target.value);
+        switch (e.target.value) {
+            case "name_asc":
+                return setDataShoes(dataShoes.sort((a, b) => a.name.localeCompare(b.name)));
+            case "name_desc":
+                return setDataShoes(dataShoes.sort((a, b) => b.name.localeCompare(a.name)));
+            case "price_asc":
+                return setDataShoes(dataShoes.sort((a, b) => a.price - b.price));
+            case "price_desc":
+                return setDataShoes(dataShoes.sort((a, b) => b.price - a.price));
+            default:
+                return '';
+        }
     }
 
     return (
@@ -93,11 +112,25 @@ export default function ShoesList() {
                         max="1000"
                         value={price}
                         onChange={onPriceChange} />
-                    <button>Search</button>
+                    <div>
+                        <button className='btn'>Search</button>
+                    </div>
                 </form>
             </div>
 
             <div className='product-grid'>
+                <div>
+                    <h1>Shoes</h1>
+                    <h2>This page shows shoes in store</h2>
+                    <select
+                        value={sort}
+                        onChange={onSortChangeHandler} >
+                        <option value="name_asc" key="name_asc">Name A-Z</option>
+                        <option value="name_desc" key="name_desc">Name Z-A</option>
+                        <option value="price_asc" key="price_asc">Price ASC</option>
+                        <option value="price_desc" key="price_desc">Price DESC</option>
+                    </select>
+                </div>
                 <ul className='items-div'>
                     {dataShoes.map((e, i) =>
                         i + 1 <= count ?
@@ -143,7 +176,7 @@ function ListItem({ id, name, description, price, image, color, size, discount, 
                     price}
                 </p>
                 <p>Rating: {rating} out of 5</p>
-                <button onClick={buyProduct}>Add to Cart</button>
+                <button className='btn' onClick={buyProduct}>Add to Cart</button>
             </div>
         </li>
     )
