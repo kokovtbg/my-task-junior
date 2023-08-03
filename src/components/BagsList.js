@@ -147,7 +147,7 @@ export default function BagsList() {
                                 price={e.price}
                                 image={e.image}
                                 color={e.color}
-                                size={e.size}
+                                volume={e.volume}
                                 discount={e.discount}
                                 rating={e.rating} /> : ''
                     )}
@@ -162,7 +162,7 @@ export default function BagsList() {
 }
 
 
-function ListItem({ id, name, description, price, image, color, size, discount, rating }) {
+function ListItem({ id, name, description, price, image, color, volume, discount, rating }) {
     function buyProduct(e) {
         e.preventDefault();
         alert('Product added to cart');

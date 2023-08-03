@@ -61,6 +61,7 @@ body {
 .main {
     padding: 0px 28px;
     display: flex;
+    flex-wrap: wrap;
 }
 
 .filter-div {
@@ -74,6 +75,10 @@ body {
 .filter-div-div {
     margin-bottom: 20px;
     margin-top: 12px;
+}
+
+.filter-div-div input[type='range'] {
+    width: 80%;
 }
 
 .category-sort-div {
@@ -98,7 +103,7 @@ body {
 
 .items-div .item {
     flex-basis: 25%;
-    height: 400px;
+    height: 450px;
     margin-bottom: 18px;
 }
 
@@ -108,6 +113,13 @@ body {
 
 .items-div .item .item-desc {
     height: 30%;
+}
+
+.item-desc {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .item img {
@@ -167,6 +179,7 @@ footer {
     /* width: 85%; */
     margin: 0 auto;
     padding: 28px 28px;
+    flex-wrap: wrap;
 }
 
 .bold {
@@ -220,6 +233,34 @@ footer i:not(:last-child) {
 
 @media(max-width: 1024px) {
     .items-div .item {
-        flex-basis: 33%;
+        flex-basis: 50%;
+        height: 500px;
+    }
+
+    .filter-div {
+        flex-basis: 100%;
+    }
+
+    .product-grid {
+        flex-basis: 100%;
+    }
+    .filter-div-div input[type='range'] {
+        width: 50%;
+    }
+
+    footer button {
+        padding: 4px 12px;
+    }
+
+    footer ul {
+        flex-basis: 100%;
+        justify-content: space-between;
+        margin-bottom: 18px;
+    }
+}
+
+@media(max-width: 640px) {
+    .items-div .item {
+        flex-basis: 100%;
     }
 }
